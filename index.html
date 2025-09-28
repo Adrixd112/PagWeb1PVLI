@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <title>HTML</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="estilo.css"> <!-- Esto cargaria un archivo de estilo, pero no es necesario en Fiddle porque lo hace automáticamente -->
+    <script src="script.js"></script> <!--Aquí podriamos cargar los scripts, también se puede en el <body>, y pasa lo mismo que con el css de antes, en verdad aquí no estamos cargando nada-->
+</head>
+
+<body onload="actualizarBotonesLista()">
+    <h1>Cuál es tu asignatura favorita? </h1>
+    <div>
+        <button onclick="cambiaVisibilidad_like(this)">Hide liked</button>
+        <button onclick="cambiaVisibilidad_dislike(this)">Hide disliked</button>
+        <button onclick="cambiaColores_like()">Change liked colours</button>
+        <button onclick="cambiaColores_dislike()">Change disliked colours</button>
+    </div>
+    <div>
+        <ul id="listAsignaturas">
+            <li><button onclick="cambiaClase(this)" class=like> FP1</button></li>
+            <li><button onclick="cambiaClase(this)" class=like> FP2</button></li>
+            <li><button onclick="cambiaClase(this)" class=like> EDA</button></li>
+            <li><button onclick="cambiaClase(this)" class=like> TPV</button></li>
+            <li><button onclick="cambiaClase(this)" class=like> PVLI</button></li>
+            <li><button onclick="cambiaClase(this)" class=like> P1</button></li>
+            <li><button onclick="cambiaClase(this)" class=like> P2</button></li>
+            <li><button onclick="cambiaClase(this)" class=like> MV</button></li>
+            <li><button onclick="cambiaClase(this)" class=like> FC</button></li>
+            <li><button onclick="cambiaClase(this)" class=like> EC</button></li>
+            <li><button onclick="cambiaClase(this)" class=like> MD</button></li>
+            <li><button onclick="cambiaClase(this)" class=like> MM</button></li>
+            <li><button onclick="cambiaClase(this)" class=like> DV</button></li>
+            <li><button onclick="cambiaClase(this)" class=dislike> MAP</button></li>
+            <li><button onclick="cambiaClase(this)" class=like> PDCC</button></li>
+            <li><button onclick="cambiaClase(this)" class=like> M2D3D</button></li>
+            <li><button onclick="cambiaClase(this)" class=like> MV</button></li>
+        </ul>
+
+    </div>
+</body>
+<!--2023-2024-->
+</html>

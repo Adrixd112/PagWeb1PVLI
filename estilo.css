@@ -1,0 +1,17 @@
+h1 {
+  color: blue;
+}
+
+.clase {
+  color: red;
+}
+.like{
+    background-color:aquamarine;
+}
+.dislike{
+    background-color:darkred;
+    
+}
+ul{
+    list-style-type:none;
+}
