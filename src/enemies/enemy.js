@@ -1,4 +1,7 @@
-export default class Enemy extends Phaser.GameObjects.Sprite {
+import LifeBar from "../lifebar.js";
+
+
+export default class Enemy extends Phaser.GameObjects.Container {
     /**
      * Constructor de Enemigo
      * @param {Scene} scene - escena en la que aparece
@@ -7,7 +10,7 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
      * @param {number} y - coordenada y
      */
     constructor(scene, x, y, life, defense, texture, frame) {
-        super(scene, x, y, texture, frame); //En la doc de Phaser (https://newdocs.phaser.io/docs/3.86.0/Phaser.GameObjects.Sprite) veremos que
+        super(scene, x, y); //En la doc de Phaser (https://newdocs.phaser.io/docs/3.86.0/Phaser.GameObjects.Sprite) veremos que
         /* el contructor de Sprite recibe 5 parámetros, siendo el último opcional (en la documentación se indica con[])
         el contructor de prite recibe: 
         
@@ -17,11 +20,24 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
         texture - string | Phaser.Textures.Texture - The key, or instance of the Texture this Game Object will use to render with, as stored in the Texture Manager.
         frame - string | number     <optional>  - An optional frame from the Texture this Game Object is rendering with.
         */
-        
+
         this.life = life; //La vida total que tendrá el enemigo.
         this.defense = defense; //La defensa que tendrá el enemigo, reducirá el daño de cada ataque.
+        this.sprite = new Phaser.GameObjects.Sprite(scene, 0, 0, texture, frame)
+        
+        this.lifeBar = new LifeBar(this.scene,0, -30, 100, 20, this.life, 2)
+        
+        this.scene.add.existing(this)
+        
+         //Nos añadimos a la escena para ser mostrados.
 
-        this.scene.add.existing(this); //Nos añadimos a la escena para ser mostrados.
+        this.add(this.sprite)
+        this.add(this.lifeBar)
+
+        
+        this.sprite.on("pointerdown", function () { this.hit(12) })
+
+        console.log(this)
     }
 
     /**
@@ -31,22 +47,28 @@ export default class Enemy extends Phaser.GameObjects.Sprite {
      */
     preUpdate(t, dt) {
         // Es muy imporante llamar al preUpdate del padre (Sprite), sino no se ejecutará la animación
-        super.preUpdate(t, dt); 
+        
     }
 
     /**
      * Método al que se llamará cuando muera el enemigo
      */
-    die(){
-        
+    die() {
+
     }
 
     /**
     * Método llamado para golpear al enemigo. 
     * @param {number} damage - daño recibido, al que se aplicará una reducción por la defensa que tengamos.
     */
-    hit(damage){
+    hit(damage) {
         this.life -= (damage - this.defense);
         console.log(this.life);
+        this.lifeBar.targetValue = this.life;
+        this.sprite.setTint(0xffff0000)
+        this.scene.time.addEvent({
+            delay: 500,
+            callback: () => { this.sprite.setTint(0xffffffff) }  //después de 0.5 segundos modificamos a un tinte blanco que dejará la imagen igual
+        })
     }
 }
