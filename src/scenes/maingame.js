@@ -22,7 +22,7 @@ export default class Animation extends Phaser.Scene {
         this.load.image('castle', 'assets/castle.gif');
         this.load.spritesheet('bat', 'assets/batIdle.png', { frameWidth: 32, frameHeight: 32 });
         this.load.spritesheet('slime', 'assets/greenSlime.png', { frameWidth: 48, frameHeight: 48 });
-
+        this.load.spritesheet('batDeath', 'assets/batDeath.png', { frameWidth: 32, frameHeight: 32 });
 
     }
 
@@ -44,6 +44,18 @@ export default class Animation extends Phaser.Scene {
             frames: this.anims.generateFrameNumbers('slime', { start: 0, end: 3 }),
             frameRate: 5,
             repeat: -1
+        });
+        this.anims.create({
+            key: 'bat_death',
+            frames: this.anims.generateFrameNumbers('batDeath', { start: 0, end: 3 }),
+            frameRate: 5,
+            repeat: 0
+        });
+        this.anims.create({
+            key: 'slime_death',
+            frames: this.anims.generateFrameNumbers('slime', { start: 34, end: 39 }),
+            frameRate: 5,
+            repeat: 0
         });
         console.log('Anim keys:', this.anims.anims.entries)
 
