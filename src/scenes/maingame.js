@@ -9,6 +9,7 @@ export default class Animation extends Phaser.Scene {
 
     constructor() {
         super({ key: 'maingame' });
+        this.enemies = []
     }
 
     init() {
@@ -65,17 +66,26 @@ export default class Animation extends Phaser.Scene {
         // vamos a posicionarlo en el centro del canvas con this.sys.game.canvas.width*0.5, this.sys.game.canvas.height*0.5
         // nuestro enemigo va a tener 20 de vida y 1 de defensa
         // además vamos a pintarlo con un spritesheet que tendremos que haber cargado antes en el método preload y cuyo id será 'bat'. Lo primero que pintaremos es el primer frame (frame 0)
-        this.bat = new Bat(this, this.sys.game.canvas.width * 0.7, this.sys.game.canvas.height * 0.5);
+        this.enemies[0] = new Bat(this, this.sys.game.canvas.width * 0.7, this.sys.game.canvas.height * 0.5);
         
         
         
 
-        this.slime = new Slime(this, this.sys.game.canvas.width * 0.5, this.sys.game.canvas.height * 0.5)
+        this.enemies[1] = new Slime(this, this.sys.game.canvas.width * 0.5, this.sys.game.canvas.height * 0.5)
         
-        
+        this.zone = new Phaser.GameObjects.Zone(this, 0, this.sys.game.canvas.height-65, this.sys.game.canvas.width, 65).setOrigin(0,0)
+
+        this.physics.add.existing(this.zone, true);
     }
 
     update(time, dt) {
-
+        this.physics.world.collide(this.enemies, this.zone);
+        let i = 0;
+        while(i < this.enemies.length && !this.enemies[i].isAlive()) {
+            i++;
+        }
+        if (i == this.enemies.length) {
+            console.log('dead')
+        }
     }
 }

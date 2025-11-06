@@ -7,6 +7,7 @@ export default class Bat extends Enemy {
         this.sprite.scale = 2.5
         this.sprite.on("pointerdown", function () { this.hit(10); }, this)
         this.sprite.play('bat_idle');
+        this.body.setAllowGravity(false);
     }
 
     preUpdate(t,dt) {
@@ -17,6 +18,7 @@ export default class Bat extends Enemy {
     die() {
         super.die();
         this.sprite.play('bat_death')
+        this.body.setAllowGravity(true);
         //Aquí podríamos dar una muerte diferente a la de un enemigo común, lanzando alguna animación especial o explotando y haciendo daño a en emigos adyacentes....
     }
 }

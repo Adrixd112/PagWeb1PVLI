@@ -31,7 +31,7 @@ export default class Enemy extends Phaser.GameObjects.Container {
 
         this.lifeBar = new LifeBar(this.scene, 0, -30, 100, 20, this.life, 2)
 
-
+        
 
         //Nos añadimos a la escena para ser mostrados.
 
@@ -43,7 +43,11 @@ export default class Enemy extends Phaser.GameObjects.Container {
         this.add(this.lifeBar)
 
         this.sprite.setInteractive()
-        
+
+
+        this.scene.physics.add.existing(this);
+
+        this.body.setSize(16, 16)
 
         console.log(this)
     }
@@ -88,4 +92,6 @@ export default class Enemy extends Phaser.GameObjects.Container {
             })
         }
     }
+
+    isAlive() {return this.life!=0 }
 }
